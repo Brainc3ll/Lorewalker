@@ -3,7 +3,7 @@ if GetLocale() ~= "frFR" then return end
 local env = select(2, ...)
 local L = env.L
 
-L["ESC"] = ESC
+L["ESC"] = "ESC"
 L["GOODBYE"] = GOODBYE
 L["ACCEPT"] = ACCEPT
 L["AUTO_ACCEPT"] = ACCEPT
