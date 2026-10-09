@@ -18,6 +18,7 @@ local GetGossipOptions = C_GossipInfo.GetOptions
 local GetNumActiveQuests = C_GossipInfo.GetNumActiveQuests
 local GetNumAvailableQuests = C_GossipInfo.GetNumAvailableQuests
 local GetQuestID = GetQuestID
+local QuestFrame_OnEvent = QuestFrame_OnEvent
 local QuestIsFromAreaTrigger = QuestIsFromAreaTrigger or False
 local QuestGetAutoAccept = QuestGetAutoAccept or False
 local SelectOptionByIndex = C_GossipInfo.SelectOptionByIndex
@@ -288,28 +289,17 @@ do
         return interactionType == Enum.PlayerInteractionType.Item and (isNonNPCQuestSession or ControlCenter_Director.questSessionType)
     end
 
-    local function BeginQuestSession()
-        if QuestIsFromAreaTrigger() and QuestGetAutoAccept() then
-            return
-        end
-
-        EventListener:BeginSession()
-    end
-
     local function OnSessionBegin(event, ...)
         isSessionActive = true
 
         if event == "QUEST_DETAIL" then
-            local questStartItemID = ...
-            if (questStartItemID or 0) > 0 then
-                isNonNPCQuestSession = true
-            end
+            isNonNPCQuestSession = not ControlCenter_DataProvider.IsInteractingWithNpc()
         elseif GOSSIP_SESSION_TYPE_LOOKUP[event] then
             isNonNPCQuestSession = false
         end
 
         if QUEST_SESSION_TYPE_LOOKUP[event] then
-            BeginQuestSession()
+            EventListener:BeginSession()
             return
         end
 
@@ -391,6 +381,14 @@ do
     EventListener:SetScript("OnEvent", function(self, event, ...)
         if not ThrottleEvent(event) then
             return
+        end
+
+        if event == "QUEST_DETAIL" then
+            local questStartItemID = ...
+            if (questStartItemID or 0) > 0 or (QuestIsFromAreaTrigger() and QuestGetAutoAccept()) then
+                QuestFrame_OnEvent(QuestFrame, event, ...)
+                return
+            end
         end
 
         if event == "QUEST_GREETING" then

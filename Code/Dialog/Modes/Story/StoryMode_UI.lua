@@ -242,7 +242,7 @@ do -- Option
 
     StoryMode_UI.Option = UIKit.Template(function(id, name, children, ...)
         local frame =
-            Frame(name, {
+            LayoutVertical(name, {
                 LayoutHorizontal(name .. ".ContainerFrame", {
                     Frame(name .. ".Icon")
                         :id("Icon", id)
@@ -262,8 +262,8 @@ do -- Option
                     Text(name .. ".Sublabel")
                         :id("Sublabel", id)
                         :frameLevel(2)
-                        :point(UIKit.Enum.Point.Right)
                         :size(SUBLABEL_WIDTH, UIKit.UI.FIT)
+                        :layoutPushH()
                         :textJustifyH("RIGHT")
                         :textJustifyV("MIDDLE")
                         :fontObject(UIFont.UIFontObjectNormal16)
@@ -273,13 +273,13 @@ do -- Option
                 })
                     :id("ContainerFrame", id)
                     :frameLevel(2)
-                    :point(UIKit.Enum.Point.Center)
                     :size(UIKit.UI.FIT, UIKit.UI.FIT)
                     :layoutAlignmentV(UIKit.Enum.Direction.Justified)
                     :layoutSpacing(CONTENT_SPACING)
                     :alpha(ALPHA_DISABLED)
             })
             :size(UIKit.UI.FIT, UIKit.UI.FIT)
+            :layoutStretchH()
             :enableMouse(true)
 
         frame.ContainerFrame = UIKit.GetElementById("ContainerFrame", id)
@@ -335,6 +335,7 @@ do -- Story Options Box
                 :frameLevel(2)
                 :point(UIKit.Enum.Point.Center)
                 :size(UIKit.UI.FIT, UIKit.UI.FIT)
+                :layoutStretchH()
                 :layoutSpacing(CONTENT_SPACING)
         })
         :parent(LWParent)

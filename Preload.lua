@@ -166,7 +166,7 @@ do
         DialogFontSizeOffset                               = 1, --100%
         ChatBubbleFontSizeOffset                           = 1, --100%
         LockFramePositions                                 = false,
-        ConfirmUseInteractKey                              = true,
+        ConfirmUseInteractKey                              = false,
 
         HideUI                                             = false,
         CameraEffectsPreset                                = Enum.CameraEffectsPreset.None,

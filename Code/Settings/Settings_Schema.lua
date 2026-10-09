@@ -122,7 +122,9 @@ local RESTORE_POSITIONS_PROMPT = {
 
 do -- Schema
     local function FormatPercentage(value) return string.format("%0.0f", value * 100) .. "%" end
+    local function FormatSeconds(value) return string.format(L["FORMAT_SECONDS"], value) end
     local function IsKeyboardBindingDevice() return Config.DBGlobal:GetVariable("BindingDevice") == InputHandler.Enum.InputDevices.KBM end
+    local function IsImmersivePlaybackDisabled() return not Config.DBGlobal:GetVariable("Immersive_Playback") end
 
     Settings_Schema.SCHEMA = {
         {
@@ -212,6 +214,80 @@ do -- Schema
                             widgetDescription = Settings_Define.Descriptor{ description = L["CONFIG_DIALOGUE_CLOSETOPREVIOUSPAGE_DESCRIPTION"] },
                             widgetType        = Settings_Enum.WidgetType.CheckButton,
                             key               = "CloseToPreviousPage"
+                        }
+                    }
+                },
+                {
+                    widgetName = L["CONFIG_DIALOGUE_IMMERSIVE"],
+                    widgetType = Settings_Enum.WidgetType.Container,
+                    showWhen   = function() return Config.DBGlobal:GetVariable("ActiveMode") == env.Enum.Mode.Immersive end,
+                    children   = {
+                        {
+                            widgetName        = L["CONFIG_DIALOGUE_IMMERSIVE_SPLITPARAGRAPHS"],
+                            widgetDescription = Settings_Define.Descriptor{ description = L["CONFIG_DIALOGUE_IMMERSIVE_SPLITPARAGRAPHS_DESCRIPTION"] },
+                            widgetType        = Settings_Enum.WidgetType.CheckButton,
+                            key               = "Immersive_SplitParagraphs"
+                        },
+                        {
+                            widgetName        = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACK"],
+                            widgetDescription = Settings_Define.Descriptor{ description = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACK_DESCRIPTION"] },
+                            widgetType        = Settings_Enum.WidgetType.CheckButton,
+                            key               = "Immersive_Playback"
+                        },
+                        {
+                            widgetName                     = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKSPEED"],
+                            widgetType                     = Settings_Enum.WidgetType.Range,
+                            widgetRange_min                = 0.5,
+                            widgetRange_max                = 2,
+                            widgetRange_step               = 0.1,
+                            widgetRange_textFormattingFunc = FormatPercentage,
+                            key                            = "Immersive_PlaybackSpeed",
+                            indent                         = 1,
+                            disableWhen                    = IsImmersivePlaybackDisabled
+                        },
+                        {
+                            widgetName  = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOPROGRESS"],
+                            widgetType  = Settings_Enum.WidgetType.CheckButton,
+                            key         = "Immersive_PlaybackAutoProgress",
+                            indent      = 1,
+                            disableWhen = IsImmersivePlaybackDisabled
+                        },
+                        {
+                            widgetName                     = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOPROGRESSDELAY"],
+                            widgetType                     = Settings_Enum.WidgetType.Range,
+                            widgetRange_min                = 0,
+                            widgetRange_max                = 5,
+                            widgetRange_step               = 0.5,
+                            widgetRange_textFormattingFunc = FormatSeconds,
+                            key                            = "Immersive_PlaybackAutoProgressDelay",
+                            indent                         = 2,
+                            disableWhen                    = function() return IsImmersivePlaybackDisabled() or not Config.DBGlobal:GetVariable("Immersive_PlaybackAutoProgress") end
+                        },
+                        {
+                            widgetName  = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKPUNCTUATIONPAUSING"],
+                            widgetType  = Settings_Enum.WidgetType.CheckButton,
+                            key         = "Immersive_PlaybackPunctuationPausing",
+                            indent      = 1,
+                            disableWhen = IsImmersivePlaybackDisabled
+                        },
+                        {
+                            widgetName        = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOCLOSE"],
+                            widgetDescription = Settings_Define.Descriptor{ description = L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOCLOSE_DESCRIPTION"] },
+                            widgetType        = Settings_Enum.WidgetType.CheckButton,
+                            key               = "Immersive_PlaybackAutoClose",
+                            indent            = 1,
+                            disableWhen       = IsImmersivePlaybackDisabled
+                        },
+                        {
+                            widgetName                     = L["CONFIG_DIALOGUE_IMMERSIVE_CONTENTPREVIEWALPHA"],
+                            widgetType                     = Settings_Enum.WidgetType.Range,
+                            widgetRange_min                = 0,
+                            widgetRange_max                = 1,
+                            widgetRange_step               = 0.05,
+                            widgetRange_textFormattingFunc = FormatPercentage,
+                            key                            = "Immersive_ContentPreviewAlpha",
+                            indent                         = 1,
+                            disableWhen                    = IsImmersivePlaybackDisabled
                         }
                     }
                 }

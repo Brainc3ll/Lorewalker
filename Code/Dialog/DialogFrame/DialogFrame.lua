@@ -1158,6 +1158,8 @@ do --Footer
         local questSessionType = ControlCenter.GetQuestSessionType()
         local isAutoAccept = ControlCenter.IsQuestAutoAccept()
 
+        self.TitleContainer.CloseButton:SetEnabled(questSessionType ~= ControlCenter_Preload.Enum.SessionType.Detail or not isAutoAccept)
+
         if gossipSessionType then
             ApplyLayout(LAYOUTS.Gossip)
         elseif questSessionType then

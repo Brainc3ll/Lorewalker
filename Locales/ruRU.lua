@@ -18,6 +18,7 @@ L["REQUIRED_ITEMS"] = TURN_IN_ITEMS
 L["REWARDS"] = REWARDS
 L["LEARN_SPELL_OBJECTIVE"] = LEARN_SPELL_OBJECTIVE
 L["WIP"] = "В разработке"
+L["FORMAT_SECONDS"] = "%g s"
 
 -- Frames
 L["DIALOG_FRAME"] = "Окно диалога"
@@ -57,6 +58,18 @@ L["CONFIG_DIALOGUE_FRAME"] = "Окно диалогов"
 L["CONFIG_DIALOGUE_RIGHTCLICKTOCLOSE"] = "Закрытие правым кликом"
 L["CONFIG_DIALOGUE_CLOSETOPREVIOUSPAGE"] = "Назад на предыдущую страницу"
 L["CONFIG_DIALOGUE_CLOSETOPREVIOUSPAGE_DESCRIPTION"] = "На страницах заданий клавиша закрытия возвращает вас на предыдущую страницу вместо полного закрытия интерфейса."
+L["CONFIG_DIALOGUE_IMMERSIVE"] = "Immersive"
+L["CONFIG_DIALOGUE_IMMERSIVE_SPLITPARAGRAPHS"] = "Split Paragraphs"
+L["CONFIG_DIALOGUE_IMMERSIVE_SPLITPARAGRAPHS_DESCRIPTION"] = "Split dialogue into paragraphs. When disabled, split it into sentences."
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACK"] = "Text Playback"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACK_DESCRIPTION"] = "Reveal dialogue text gradually."
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKSPEED"] = "Playback Speed"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOPROGRESS"] = "Auto-Progress"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOPROGRESSDELAY"] = "Delay"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKPUNCTUATIONPAUSING"] = "Pause At Punctuation"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOCLOSE"] = "Auto-Close"
+L["CONFIG_DIALOGUE_IMMERSIVE_PLAYBACKAUTOCLOSE_DESCRIPTION"] = "Close gossip after the final message when no choices are available."
+L["CONFIG_DIALOGUE_IMMERSIVE_CONTENTPREVIEWALPHA"] = "Content Preview Brightness"
 
 L["CONFIG_EFFECTS"] = "Эффекты"
 L["CONFIG_EFFECTS_HIDEUI"] = "Скрывать интерфейс"

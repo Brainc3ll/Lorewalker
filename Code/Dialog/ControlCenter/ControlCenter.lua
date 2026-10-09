@@ -129,6 +129,7 @@ do --Session
     end
 
     function ControlCenter.CloseSession()
+        if ControlCenter_Director.questSessionType == ControlCenter_Preload.Enum.SessionType.Detail and ControlCenter.IsQuestAutoAccept() then return end
         ControlCenter_Director.EndSession(true)
     end
 end
@@ -222,9 +223,9 @@ do --Quest
         if not valid then return end
         local _, iconSize = UIFont.ParchmentItemText:GetFont()
         iconSize = iconSize + 4
-        local moneyText = gold > 0 and gold .. " |T" .. ControlCenter_ContextIcon.TexDef.Gold.path .. ":" .. iconSize .. ":" .. iconSize .. "|t" or ""
-        if silver > 0 then moneyText = moneyText .. (moneyText ~= "" and " " or "") .. silver .. " |T" .. ControlCenter_ContextIcon.TexDef.Silver.path .. ":" .. iconSize .. ":" .. iconSize .. "|t" end
-        if copper > 0 then moneyText = moneyText .. (moneyText ~= "" and " " or "") .. copper .. " |T" .. ControlCenter_ContextIcon.TexDef.Copper.path .. ":" .. iconSize .. ":" .. iconSize .. "|t" end
+        local moneyText = gold > 0 and gold .. " |T" .. ControlCenter_ContextIcon.TexDef.Gold.path .. ":" .. iconSize .. ":" .. iconSize .. ":0:-2|t" or ""
+        if silver > 0 then moneyText = moneyText .. (moneyText ~= "" and " " or "") .. silver .. " |T" .. ControlCenter_ContextIcon.TexDef.Silver.path .. ":" .. iconSize .. ":" .. iconSize .. ":0:-2|t" end
+        if copper > 0 then moneyText = moneyText .. (moneyText ~= "" and " " or "") .. copper .. " |T" .. ControlCenter_ContextIcon.TexDef.Copper.path .. ":" .. iconSize .. ":" .. iconSize .. ":0:-2|t" end
         return moneyText
     end
 
@@ -244,7 +245,12 @@ end
 
 do --Quest Actions
     function ControlCenter.AcceptQuest()
-        if ControlCenter_Director.questSessionType then AcceptQuest() end
+        if ControlCenter_Director.questSessionType ~= ControlCenter_Preload.Enum.SessionType.Detail then return end
+        if ControlCenter.IsQuestAutoAccept() then
+            AcknowledgeAutoAcceptQuest()
+        else
+            AcceptQuest()
+        end
     end
 
     function ControlCenter.ContinueQuest()

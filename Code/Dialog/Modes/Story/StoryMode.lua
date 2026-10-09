@@ -48,7 +48,7 @@ local ACTION_HANDLERS = {
         end
     end,
     [DialogFrame.Enum.Action.Accept]     = ControlCenter.AcceptCurrentQuest,
-    [DialogFrame.Enum.Action.AutoAccept] = CloseSession,
+    [DialogFrame.Enum.Action.AutoAccept] = ControlCenter.AcceptCurrentQuest,
     [DialogFrame.Enum.Action.Continue]   = ControlCenter.ContinueCurrentQuest,
     [DialogFrame.Enum.Action.Complete]   = ControlCenter.CompleteCurrentQuest
 }

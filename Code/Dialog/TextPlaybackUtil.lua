@@ -214,6 +214,8 @@ end
 
 function TextPlaybackUtil.GetPreviewHexColor(fontString)
     local previewAlpha = Config.DBGlobal:GetVariable("Immersive_ContentPreviewAlpha")
+    if previewAlpha == 0 then return "000000" end
+
     local previewModifier = 0.2 + min(max(tonumber(previewAlpha) or 0.5, 0), 1) / 1.25
     local red, green, blue = fontString:GetTextColor()
 
